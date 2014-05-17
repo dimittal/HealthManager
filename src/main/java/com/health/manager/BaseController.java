@@ -19,5 +19,16 @@ public class BaseController {
 		return "index";
 
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(ModelMap model) {
+
+		model.addAttribute("message",
+				"Maven Web Project + Spring 3 MVC - welcome()");
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "login";
+
+	}
 
 }
