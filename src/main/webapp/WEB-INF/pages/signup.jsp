@@ -15,8 +15,9 @@
 <script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login : Health Manager</title>
+<title>SignUp : Health Manager</title>
 </head>
+
 <body>
 	<div class="container">
 		<div class="row clearfix">
@@ -75,12 +76,23 @@
 					 <label for="exampleInputEmail1">Email address</label><input type="email" class="form-control" id="exampleInputEmail1" />
 				</div>
 				<div class="form-group">
-					 <br>
 					 <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" />
+				</div>
+				<div class="form-group">
+					 <label for="exampleInputPassword2">Confirm Password</label><input type="password" class="form-control" id="exampleInputPassword2" />
+				</div>
+				<div class="form-group">
+					 <label for="firstName">First Name</label><input type="text" class="form-control" id="firstName" />
+				</div>
+				<div class="form-group">
+					 <label for="lastName">Last Name</label><input type="text" class="form-control" id="lastName" />
+				</div>
+				<div class="form-group">
+					 <label for="exampleInputFile">Upload photo</label><input type="file" id="exampleInputFile" />
 				</div>
 			</form>
 			<br>
-			<button type="submit" class="btn btn-primary">Login</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
 		</div>
 		<div class="col-md-4 column">
 		</div>
@@ -89,4 +101,5 @@
 	</div>
 	
 </body>
+
 </html>

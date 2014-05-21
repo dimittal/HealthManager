@@ -12,8 +12,14 @@
 <!-- Latest compiled and minified JavaScript -->
 <script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script>
+function takeToSignup(){
+	window.location = '/HealthManager/signup';
+}
+</script>
 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Welcome : Health Manager</title>
 <body>
 
 	<div class="container">
@@ -123,7 +129,7 @@
 	</div>
 	<div class="row clearfix">
 		<br><br><div class="col-md-12 column">
-			 <center><button type="button" class="btn btn-primary btn-lg">Sign Up</button></center>
+			 <center><button type="button" class="btn btn-primary btn-lg" onclick="takeToSignup()">Sign Up</button></center>
 		</div>
 	</div>
 </div>
