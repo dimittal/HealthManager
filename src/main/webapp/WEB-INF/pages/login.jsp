@@ -14,6 +14,20 @@
 <!-- Latest compiled and minified JavaScript -->
 <script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
+<script>
+function validateAndLogin(){
+	var emailAddress = document.getElementById("exampleInputEmail1").value;
+	var password = document.getElementById("exampleInputPassword1").value;
+    $.ajax({
+        url: './signin?email=' + emailAddress + '&pass=' + password,
+        dataType: 'json',
+        success: function (response) {
+        	window.location = "/HealthManager/dashboard/?token=" + response.sessionToken;
+        }
+    });
+}
+</script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login : Health Manager</title>
 </head>
@@ -80,7 +94,7 @@
 				</div>
 			</form>
 			<br>
-			<button type="submit" class="btn btn-primary">Login</button>
+			<button type="submit" class="btn btn-primary" onclick="validateAndLogin()">Login</button>
 		</div>
 		<div class="col-md-4 column">
 		</div>
