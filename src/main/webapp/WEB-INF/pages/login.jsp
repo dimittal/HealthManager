@@ -22,7 +22,11 @@ function validateAndLogin(){
         url: './signin?email=' + emailAddress + '&pass=' + password,
         dataType: 'json',
         success: function (response) {
-        	window.location = "/HealthManager/dashboard/?token=" + response.sessionToken;
+            var dbUrl = "/HealthManager/dashboard/?token=" + response.sessionToken +
+        						"&firstName=" + response.firstName +
+        						"&lastName=" + response.lastName +
+        						"&userId=" + response.objectId;
+        	window.location = dbUrl;
         }
     });
 }
@@ -86,7 +90,7 @@ function validateAndLogin(){
 		<div class="col-md-4 column">
 			<form role="form" class="form-inline">
 				<div class="form-group">
-					 <label for="exampleInputEmail1">Email address</label><input type="email" class="form-control" id="exampleInputEmail1" />
+					 <label for="exampleInputEmail1">User name</label><input type="email" class="form-control" id="exampleInputEmail1" />
 				</div>
 				<div class="form-group">
 					 <br>

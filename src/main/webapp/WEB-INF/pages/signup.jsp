@@ -71,28 +71,39 @@
 			</div>
 		</div>
 		<div class="col-md-4 column">
-			<form role="form" class="form-inline">
+			<form id="user" role="form" class="form-inline" method="post" action="newUser">
 				<div class="form-group">
-					 <label for="exampleInputEmail1">Email address</label><input type="email" class="form-control" id="exampleInputEmail1" />
+					 <label for="username">User name</label>
+					 <input type="text" class="form-control" id="username" name="username"/>
 				</div>
 				<div class="form-group">
-					 <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" />
+					 <label for="email">Email address</label>
+					 <input type="email" class="form-control" id="email" name="email"/>
 				</div>
 				<div class="form-group">
-					 <label for="exampleInputPassword2">Confirm Password</label><input type="password" class="form-control" id="exampleInputPassword2" />
+					 <label for="password">Password</label>
+					 <input type="password" class="form-control" id="password" name="password"/>
 				</div>
 				<div class="form-group">
-					 <label for="firstName">First Name</label><input type="text" class="form-control" id="firstName" />
+					 <label for="confirmPassword">Confirm Password</label>
+					 <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
 				</div>
 				<div class="form-group">
-					 <label for="lastName">Last Name</label><input type="text" class="form-control" id="lastName" />
+					 <label for="firstName">First Name</label>
+					 <input type="text" class="form-control" id="firstName" name="firstName"/>
 				</div>
 				<div class="form-group">
-					 <label for="exampleInputFile">Upload photo</label><input type="file" id="exampleInputFile" />
+					 <label for="lastName">Last Name</label>
+					 <input type="text" class="form-control" id="lastName" name="lastName"/>
 				</div>
+				<div class="form-group">
+					 <label for="date">Date of birth</label>
+					 <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" /><br>
+				</div>
+				<br><br>
+				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 			<br>
-			<button type="submit" class="btn btn-primary">Submit</button>
 		</div>
 		<div class="col-md-4 column">
 		</div>

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Calendar;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -53,11 +54,16 @@ public class UserManager {
 		return parseResponse(response);
 	}
 	
-	public boolean addUser(String email, String password) throws Exception{
+	public boolean addUser(User user) throws Exception{
 		
 		JSONObject json = new JSONObject();
-		json.put("username", email);
-		json.put("password", password);
+		json.put("username", user.getUsername());
+		json.put("email", user.getEmail());
+		json.put("password", user.getPassword());
+		json.put("firstName", user.getFirstName());
+		json.put("lastName", user.getLastName());
+		
+		json.put("dateOfBirth", extractTimeStampFromDate(user.getDateOfBirth()));
 		
 		String data = json.toJSONString();
 		System.out.println(data);
@@ -72,6 +78,40 @@ public class UserManager {
 		else {
 			return false;
 		}
+	}
+	
+	public boolean addPrescription(User user) throws Exception{
+		
+		JSONObject json = new JSONObject();
+		json.put("username", user.getEmail());
+		json.put("password", user.getPassword());
+		json.put("firstName", user.getFirstName());
+		json.put("lastName", user.getLastName());
+		
+		json.put("dateOfBirth", extractTimeStampFromDate(user.getDateOfBirth()));
+		
+		String data = json.toJSONString();
+		System.out.println(data);
+		
+		ClientResponse response = call("/1/users", RestMethod.POST, data);
+		
+		parseResponse(response);
+		
+		if (response.getStatus() == 201){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	private long extractTimeStampFromDate(String date) {
+
+		String[] dateArray = date.split("-");
+		Calendar cal = Calendar.getInstance();
+		cal.set(Integer.parseInt(dateArray[0]), Integer.parseInt(dateArray[1]), Integer.parseInt(dateArray[2]));
+		
+		return cal.getTimeInMillis()/1000;
 	}
 	
 	public String loginUser(String email, String password) throws Exception{
@@ -102,66 +142,6 @@ public class UserManager {
 	    
 	    return responseStrBuilder.toString();
 	    
-	}
-	
-	private static ClientConfig configureClient() {
-
-		SSLContext ctx = getSSLContext();
-		
-		HttpsURLConnection.setDefaultSSLSocketFactory(ctx.getSocketFactory());
-
-		ClientConfig config = new DefaultClientConfig();
-		try {
-			
-			HostnameVerifier verifier = getHostnameVerifier();
-			
-			config.getProperties().put(
-					HTTPSProperties.PROPERTY_HTTPS_PROPERTIES,
-					new HTTPSProperties(verifier, ctx));
-		} catch (Exception e) {
-		}
-		return config;
-	}
-	
-	private static X509HostnameVerifier getHostnameVerifier() {
-		X509HostnameVerifier verifier = new X509HostnameVerifier() {
-			
-			public boolean verify(String hostname,
-					SSLSession session) {
-				return true;
-			}
-
-			public void verify(String host, SSLSocket ssl) throws IOException {}
-
-			public void verify(String host, X509Certificate cert)
-					throws SSLException {}
-
-			public void verify(String host, String[] cns, String[] subjectAlts)
-					throws SSLException {}
-		};
-		return verifier;
-	}
-	
-	static class DefaultTrustManager implements X509TrustManager {
-
-		public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {}
-
-		public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {}
-
-		public X509Certificate[] getAcceptedIssuers() {
-			return null;
-		}
-	}
-	
-	private static SSLContext getSSLContext() {
-		SSLContext ctx = null;
-		try {
-			ctx = SSLContext.getInstance("TLSv1");
-            ctx.init(new KeyManager[0], new TrustManager[] {new DefaultTrustManager()}, new SecureRandom());
-		} catch (java.security.GeneralSecurityException ex) {
-		}
-		SSLContext.setDefault(ctx);
-		return ctx;
 	}
 	
 	public static ClientResponse call(String urlRelativePath, RestMethod method, String jsonRequest)

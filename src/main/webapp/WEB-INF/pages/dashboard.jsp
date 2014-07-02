@@ -14,8 +14,9 @@
 <!-- Latest compiled and minified JavaScript -->
 <script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>DashBoard | ${firstName} ${lastName}</title>
 </head>
 <body>
 
@@ -72,7 +73,7 @@
 	<div class="row clearfix">
 		<div class="col-md-12 column">
 			<p>
-			Welcome Dipesh Mittal
+			Welcome ${firstName} ${lastName}  
 			</p>
 		</div>
 	</div>
@@ -89,13 +90,49 @@
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="panel-725440">
-						<p>
-							I'm in Section 1.
-						</p>
+						<div class="row clearfix">
+							<br>
+							<div class="container">
+								<div class="row clearfix">
+									<div class="col-md-12 column">
+										<div class="panel-group" id="panel-669064">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													 <a class="panel-title" data-toggle="collapse" data-parent="#panel-669064" href="#panel-element-740146">Add a prescription</a>
+												</div>
+												<div id="panel-element-740146" class="panel-collapse in">
+													<div class="panel-body">
+														<form id="prescription" role="form" class="form-inline" method="post" action="addPrescription">
+															<div class="form-group">
+																 <label for="date">Date</label>
+																 <input type="date" class="form-control" name="date" id="date" /><br>
+															</div>
+															<div class="form-group">
+																 <label for="symptoms">Symptoms (comma separated)</label>
+																 <input type="text" class="form-control" name="symptoms" id="symptoms" /><br>
+															</div>
+															<div class="form-group">
+																 <label for="doctor">Doctor</label>
+																 <input type="text" class="form-control" name="doctor" id="doctor"/><br>
+															</div>
+															<div class="form-group" >
+																 <input type="hidden" name="userId" id="userId" value="${userId}"/><br>
+															</div>
+															<br><br>
+															<button type="submit" class="btn btn-default">Submit</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="tab-pane" id="panel-25205">
 						<p>
-							Howdy, I'm in Section 2.
+							Coming soon.
 						</p>
 					</div>
 				</div>
