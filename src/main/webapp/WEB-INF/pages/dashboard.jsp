@@ -14,6 +14,51 @@
 <!-- Latest compiled and minified JavaScript -->
 <script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
+<script>
+function fetchPrescriptions(){
+	var token = '${token}';
+
+    $.ajax({
+        url: './loadPrescriptions?token=' + token,
+        dataType: 'json',
+        success: function (prescriptions) {
+        	if (prescriptions.results && prescriptions.results.length > 0){
+        		
+        		  var str = "<table class=\"table\" >";
+
+        		  str+="<thead><tr><th>#</th><th>Date</th><th>Doctor</th><th>Symptoms</th></tr></thead><tbody>";
+        		  
+        		  for (var i = 0; i < prescriptions.results.length; i++){
+        			  var pres = prescriptions.results[i];
+        			  str+="<tr>";
+        			  str+="<td>"+ (i + 1) +"</td>";
+        			  str+="<td>"+ pres.dateOfIssue +"</td>";
+        			  str+="<td>"+ pres.doctorName +"</td>";
+        			  if (pres.symptoms != null && pres.symptoms.length > 0){
+        				  str+="<td>";
+        				  for (var j = 0; j < pres.symptoms.length; j++){
+                			  var symp = pres.symptoms[j];
+                			  str+=symp + " ";
+                	      }
+        				  str+="</td>";
+        			  }
+        			  str+="</tr>";
+        	      }
+        	  	  str+="</tbody>";
+        	      str+="</table>";  
+        	      document.getElementById("prescriptionTable").innerHTML = str;	
+        	  }
+        }
+    });
+}
+</script>
+
+<script type="text/javascript">
+window.onload = function() {
+
+	fetchPrescriptions();
+};
+</script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DashBoard | ${firstName} ${lastName}</title>
@@ -82,14 +127,39 @@
 			<div class="tabbable" id="tabs-651330">
 				<ul class="nav nav-tabs">
 					<li class="active">
-						<a href="#panel-725440" data-toggle="tab">Add a record</a>
+						<a href="#panel-25205" data-toggle="tab">View records</a>
 					</li>
 					<li>
-						<a href="#panel-25205" data-toggle="tab">View records</a>
+						<a href="#panel-725440" data-toggle="tab">Add a record</a>
 					</li>
 				</ul>
 				<div class="tab-content">
-					<div class="tab-pane active" id="panel-725440">
+				<div class="tab-pane active" id="panel-25205">
+					<div class="row clearfix">
+							<br>
+							<div class="container">
+								<div class="row clearfix">
+									<div class="col-md-12 column">
+										<div class="panel-group" id="panel-669063">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													 <a class="panel-title" data-toggle="collapse" data-parent="#panel-669063" href="#panel-element-740145">View prescriptions</a>
+												</div>
+												<div id="panel-element-740145" class="panel-collapse in">
+													<div class="panel-body" id="prescriptionTable">
+													</div>
+													<!--div class="col-md-12 column">
+														 <button type="button" class="btn" onclick="refreshPrescriptions()">Refresh</button>
+													</div-->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="panel-725440">
 						<div class="row clearfix">
 							<br>
 							<div class="container">
@@ -116,7 +186,7 @@
 																 <input type="text" class="form-control" name="doctor" id="doctor"/><br>
 															</div>
 															<div class="form-group" >
-																 <input type="hidden" name="userId" id="userId" value="${userId}"/><br>
+																 <input type="hidden" name="sessionToken" id="sessionToken" value="${token}"/><br>
 															</div>
 															<br><br>
 															<button type="submit" class="btn btn-default">Submit</button>
@@ -129,11 +199,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="tab-pane" id="panel-25205">
-						<p>
-							Coming soon.
-						</p>
 					</div>
 				</div>
 			</div>

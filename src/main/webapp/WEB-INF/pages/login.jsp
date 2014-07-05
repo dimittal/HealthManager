@@ -14,24 +14,6 @@
 <!-- Latest compiled and minified JavaScript -->
 <script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
-<script>
-function validateAndLogin(){
-	var emailAddress = document.getElementById("exampleInputEmail1").value;
-	var password = document.getElementById("exampleInputPassword1").value;
-    $.ajax({
-        url: './signin?email=' + emailAddress + '&pass=' + password,
-        dataType: 'json',
-        success: function (response) {
-            var dbUrl = "/HealthManager/dashboard/?token=" + response.sessionToken +
-        						"&firstName=" + response.firstName +
-        						"&lastName=" + response.lastName +
-        						"&userId=" + response.objectId;
-        	window.location = dbUrl;
-        }
-    });
-}
-</script>
-
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login : Health Manager</title>
 </head>
@@ -88,17 +70,21 @@ function validateAndLogin(){
 			</div>
 		</div>
 		<div class="col-md-4 column">
-			<form role="form" class="form-inline">
+			<p>${errorMessage}</p>
+			<form id="user" role="form" class="form-inline" method="post" action="signin">
 				<div class="form-group">
-					 <label for="exampleInputEmail1">User name</label><input type="email" class="form-control" id="exampleInputEmail1" />
+					 <label for="username">User name</label>
+					 <input type="text" class="form-control" id="username" name="username"/>
 				</div>
 				<div class="form-group">
 					 <br>
-					 <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" />
+					 <label for="password">Password</label>
+					 <input type="password" class="form-control" id="password" name="password"/>
 				</div>
+				<br><br>
+				<button type="submit" class="btn btn-primary">Login</button>
 			</form>
 			<br>
-			<button type="submit" class="btn btn-primary" onclick="validateAndLogin()">Login</button>
 		</div>
 		<div class="col-md-4 column">
 		</div>

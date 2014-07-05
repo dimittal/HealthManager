@@ -20,7 +20,9 @@ import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -41,15 +43,13 @@ public class UserManager {
 	public static final String headerValue2 = "mrOhVSa2xjrW5QP3gGDRFeucjYaxSeKxznDMfgXX";
 	public static final String headerName3 = "Content-Type";
 	public static final String headerValue3 = "application/json";
+	public static final String headerName4 = "X-Parse-Session-Token";
 
-	public String readMedicine() throws Exception{
+	public String fetchPrescriptions(String userId) throws Exception{
+				
+		String relativeUrl = "/1/classes/Prescription/" + "?where=%7B%22userId%22:%22" + userId + "%22%7D";
 		
-		// https://www.parse.com/docs/rest#objects-creating
-		
-		String objectId = "Buz31Dtto4";
-		String relativeUrl = "/1/classes/Medicine/" + objectId;
-		
-		ClientResponse response = call(relativeUrl, RestMethod.GET, null);
+		ClientResponse response = call(relativeUrl, null, RestMethod.GET, null);
 		
 		return parseResponse(response);
 	}
@@ -68,7 +68,7 @@ public class UserManager {
 		String data = json.toJSONString();
 		System.out.println(data);
 		
-		ClientResponse response = call("/1/users", RestMethod.POST, data);
+		ClientResponse response = call("/1/users", null, RestMethod.POST, data);
 		
 		parseResponse(response);
 		
@@ -80,20 +80,20 @@ public class UserManager {
 		}
 	}
 	
-	public boolean addPrescription(User user) throws Exception{
+	public boolean addPrescription(Prescription pres) throws Exception{
 		
 		JSONObject json = new JSONObject();
-		json.put("username", user.getEmail());
-		json.put("password", user.getPassword());
-		json.put("firstName", user.getFirstName());
-		json.put("lastName", user.getLastName());
+		json.put("doctorName", pres.getDoctor());
+		json.put("dateOfIssue", extractTimeStampFromDate(pres.getDate()));
 		
-		json.put("dateOfBirth", extractTimeStampFromDate(user.getDateOfBirth()));
+		json.put("symptoms", getJSONArray(pres.getSymptoms()));
+		
+		json.put("userId", pres.getUserId());
 		
 		String data = json.toJSONString();
 		System.out.println(data);
 		
-		ClientResponse response = call("/1/users", RestMethod.POST, data);
+		ClientResponse response = call("/1/classes/Prescription", null, RestMethod.POST, data);
 		
 		parseResponse(response);
 		
@@ -103,6 +103,23 @@ public class UserManager {
 		else {
 			return false;
 		}
+	}
+
+	private JSONArray getJSONArray(String symptoms) {
+		
+		if (symptoms == null){
+			return null;
+		}
+		
+		String[] str_array = symptoms.split(",");
+		
+		JSONArray array = new JSONArray();
+		
+		for (int i = 0; i < str_array.length; i++){
+			array.add(str_array[i]);
+		}
+		
+		return array;
 	}
 
 	private long extractTimeStampFromDate(String date) {
@@ -114,11 +131,24 @@ public class UserManager {
 		return cal.getTimeInMillis()/1000;
 	}
 	
-	public String loginUser(String email, String password) throws Exception{
+	public String loginUser(String username, String password) throws Exception{
 		
 		ClientResponse response = call("/1/login" +
-				"?username=" + email +
-				"&password=" + password, RestMethod.GET, null);
+				"?username=" + username +
+				"&password=" + password, null, RestMethod.GET, null);
+		
+		if (response.getStatus() == 200){
+			return parseResponse(response);
+		}
+		else {
+			return null;
+		}
+		
+	}
+	
+	public String getUserFromSessionToken(String sessionToken) throws Exception{
+		
+		ClientResponse response = call("/1/users/me", sessionToken, RestMethod.GET, null);
 		
 		if (response.getStatus() == 200){
 			return parseResponse(response);
@@ -144,7 +174,7 @@ public class UserManager {
 	    
 	}
 	
-	public static ClientResponse call(String urlRelativePath, RestMethod method, String jsonRequest)
+	public static ClientResponse call(String urlRelativePath, String sessionToken, RestMethod method, String jsonRequest)
 			throws UniformInterfaceException, IOException{
 
 		StringBuilder sb = new StringBuilder("https://api.parse.com");
@@ -156,6 +186,10 @@ public class UserManager {
 
 		Builder builder = webResource.header(headerName1, headerValue1).header(
 				headerName2, headerValue2).header(headerName3, headerValue3);
+		
+		if (sessionToken != null){
+			builder.header(headerName4, sessionToken);
+		}
 
 		ClientResponse response = null;
 		System.out.println("Method: " + method.toString());
