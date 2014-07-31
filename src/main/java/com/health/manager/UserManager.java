@@ -54,7 +54,7 @@ public class UserManager {
 		return parseResponse(response);
 	}
 	
-	public boolean addUser(User user) throws Exception{
+	public String addUser(User user) throws Exception{
 		
 		JSONObject json = new JSONObject();
 		json.put("username", user.getUsername());
@@ -70,13 +70,13 @@ public class UserManager {
 		
 		ClientResponse response = call("/1/users", null, RestMethod.POST, data);
 		
-		parseResponse(response);
+		String res = parseResponse(response);
 		
 		if (response.getStatus() == 201){
-			return true;
+			return res;
 		}
 		else {
-			return false;
+			return null;
 		}
 	}
 	

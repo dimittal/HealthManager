@@ -25,9 +25,6 @@ public class BaseController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String welcome(ModelMap model) {
 
-		model.addAttribute("message",
-				"Maven Web Project + Spring 3 MVC - welcome()");
-
 		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return "index";
 
@@ -36,11 +33,16 @@ public class BaseController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(ModelMap model) {
 
-		model.addAttribute("message",
-				"Maven Web Project + Spring 3 MVC - welcome()");
-
 		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return "login";
+
+	}
+	
+	@RequestMapping(value = "/education", method = RequestMethod.GET)
+	public String educate(ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "education";
 
 	}
 	
@@ -57,7 +59,7 @@ public class BaseController {
 	
 	@RequestMapping(value = "/newUser", method = RequestMethod.POST)
 	public String newUser(@ModelAttribute("user") 
-									User user, BindingResult result) {
+									User user, ModelMap model) {
 
 		System.out.println(user.getEmail() + " " + 
 							user.getPassword() + " " + 
@@ -66,18 +68,31 @@ public class BaseController {
 							user.getLastName() + " " + 
 							user.getDateOfBirth());
 		
-		boolean success = false;
+		String response = null;
 		UserManager manager = new UserManager();
 		try {
-			success = manager.addUser(user);
+			response = manager.addUser(user);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		
-		// Spring uses InternalResourceViewResolver and return back index.jsp
-		return "signup";
+		if (response == null){
+			model.addAttribute("errorMessage", "Sorry something went wrong!");
+			return "signup";
+		}
+		
+		JSONObject jObject = (JSONObject) JSONValue.parse(response);
+		
+		System.out.println("Inside Dashboard setup call");
+		model.addAttribute("userId", (String) jObject.get("objectId"));
+		model.addAttribute("token", (String) jObject.get("sessionToken"));
+		model.addAttribute("firstName", user.getFirstName());
+		model.addAttribute("lastName", user.getLastName());
 
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "dashboard";
+				
 	}
 	
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
@@ -116,7 +131,6 @@ public class BaseController {
 		model.addAttribute("token", (String) jObject.get("sessionToken"));
 		model.addAttribute("firstName", (String) jObject.get("firstName"));
 		model.addAttribute("lastName", (String) jObject.get("lastName"));
-//		model.addAttribute("prescriptions", loadPrescriptions(manager, (String) jObject.get("objectId")));
 
 		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return "dashboard";
@@ -227,5 +241,13 @@ public class BaseController {
 		return "dashboard";
 
 	}
+	
+	@RequestMapping(value = "/education/articles/{article_num}", method = RequestMethod.GET)
+	public String openArticle(@PathVariable("article_num") String articleNum, ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "articles/article_" + articleNum;
+
+	}	
 
 }
