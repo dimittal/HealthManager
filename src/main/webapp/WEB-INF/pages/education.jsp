@@ -18,6 +18,7 @@
 <script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Kronica provides health monitoring and education solutions for diseases like Diabetes, Liver issues and in general">
 <title>Education | Health Manager</title>
 </head>
 <body>
@@ -52,6 +53,7 @@
 				<li>
 					<a name="1">What is Pre-Diabetes?</a><br>
 					<p>Pre-Diabetes is a condition in which blood glucose levels are higher than normal but not high enough to be categorized as diabetes. People having such condition are at a high risk of developing <a href="/HealthManager/education/articles/1/">Type-2 Diabetes</a> in the future. <a href="http://www.diabetes.co.uk/news/2014/Jan/more-than-140-million-estimated-to-have-diabetes-or-prediabetes-in-india-96279767.html">View</a> the results of a study conducted by Indian Council of Medical Research.</p>
+					<p>Read more about Pre-Diabetes <a href="/HealthManager/education/articles/3/">here</a>.</p>
 				</li>
 				<li>
 					<a name="2">What is Diabetes?</a>
@@ -60,10 +62,12 @@
 				<li>
 					<a name="3">Can diabetes be dangerous?</a><br>
 					<p>Controlled diabetes will not cause much problem to the body. Long un-controlled diabetes can cause various severe health complications by making organs such as heart, eyes and kidneys vulnerable unhealthy. It can also cause damage to joints and bones, causing restrictions and subsequent pain in arms and legs. </p>
+					<p>Read more about how to keep a tab on diabetes <a href="/HealthManager/education/articles/4/">here</a>.</p>
 				</li>
 				<li>
 					<a name="4">Is Diabetes curable?</a>
 					<p>No, diabetes is not curable but is controllable to a large extent with the help of healthy lifestyle, regular monitoring and timely medication.</p>
+					<p>Read more about how to go about setting goals for our health <a href="/HealthManager/education/articles/7/">here</a>. Read more <a href="/HealthManager/education/articles/8/">here</a> about how professionals can help you in achieving your diabetes goals.</p>
 				</li>
 			</ul>
 		</div>

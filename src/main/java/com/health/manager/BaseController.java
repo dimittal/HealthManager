@@ -5,7 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Date;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.health.manager.hibernate.HibernateUtil;
+import com.health.manager.hibernate.UserDO;
 
 @Controller
 @RequestMapping("/")
@@ -242,6 +248,14 @@ public class BaseController {
 
 	}
 	
+	@RequestMapping(value = "/education/articles/", method = RequestMethod.GET)
+	public String getArticles(ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "articles/articles";
+
+	}	
+	
 	@RequestMapping(value = "/education/articles/{article_num}", method = RequestMethod.GET)
 	public String openArticle(@PathVariable("article_num") String articleNum, ModelMap model) {
 
@@ -249,5 +263,40 @@ public class BaseController {
 		return "articles/article_" + articleNum;
 
 	}	
+	
+	@RequestMapping(value = "/ok", method = RequestMethod.GET)
+	public String ok(ModelMap model) {
+
+		UserDO user = new UserDO();
+		user.setFirstName("Dipesh");
+		user.setLastName("Mittal");
+		user.setEmailAddress("dipeshmittal@live.com");
+		user.setPassword("1q2w3e4r");
+		user.setDateOfBirth(Date.valueOf("1990-08-14"));
+		user.setGender("M");
+		user.setPhoneNumber(1234567889L);
+		user.setUserType(2L);
+		user.setTimeCreated(Date.valueOf("2014-09-23"));
+		
+		System.out.println(save(user));
+		
+		return "articles";
+
+	}	
+	
+	private static Long save(UserDO user) {
+	    SessionFactory sf = HibernateUtil.getSessionFactory();
+	    Session session = sf.openSession();
+	    session.beginTransaction();
+	 
+	    Long id = (Long) session.save(user);
+	    user.setId(id);
+	         
+	    session.getTransaction().commit();
+	         
+	    session.close();
+	 
+	    return user.getId();
+	}
 
 }

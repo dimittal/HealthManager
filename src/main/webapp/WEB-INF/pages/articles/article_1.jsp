@@ -17,6 +17,8 @@
 <script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Kronica provides health monitoring and education solutions for diseases like Diabetes, Liver issues and in general">
+
 <title>What is diabetes? | Health Manager</title>
 </head>
 <body>
@@ -32,12 +34,19 @@
 				<p>
 					Type 2 diabetes, once known as adult-onset or noninsulin-dependent diabetes, is a chronic condition that affects the way your body metabolizes sugar (glucose), your body's important source of fuel.
 					<br><br>
-					With type 2 diabetes, your body either resists the effects of insulin — a hormone that regulates the movement of sugar into your cells — or doesn't produce enough insulin to maintain a normal glucose level.
+					With type 2 diabetes, your body either resists the effects of <a href="/HealthManager/education/articles/2/">insulin</a> — a hormone that regulates the movement of sugar into your cells — or doesn't produce enough insulin to maintain a normal glucose level.
 					<br><br>
 					More common in adults, type 2 diabetes increasingly affects children as childhood obesity increases. There's no cure for type 2 diabetes, but you may be able to manage the condition by eating well, exercising and maintaining a healthy weight. If diet and exercise aren't enough to manage your blood sugar well, you also may need diabetes medication or insulin therapy.
 					<br>
 				</p>
-				<h3>Symptoms</h3>
+				<h3>Diabetes</h3>
+				<ul>
+					<li><a href="#1">Symptoms</a><br></li>
+					<li><a href="#2">Causes</a> <br></li>
+					<li><a href="#3">Complications</a><br> </li>
+				</ul>
+
+				<h3><a name="1">Symptoms</a></h3>
 				<p>Type-2 diabetes symptoms often develop slowly. In fact, you can have type-2 diabetes for years and not know it. 
 				Look for:</p>
 				<ul>
@@ -74,7 +83,7 @@
 					</li>
 				</ul>
 				
-				<h3>Causes</h3>
+				<h3><a name="2">Causes</a></h3>
 				<p>Type-2 diabetes develops when the body becomes resistant to insulin or when the pancreas stops producing enough insulin. Exactly why this happens is unknown, although genetics and environmental factors, such as excess weight and inactivity, seem to be contributing factors.
 				Researchers don't fully understand why some people develop type 2 diabetes and others don't. It's clear, however, that certain factors increase the risk, including:</p>
 				<ul>
@@ -113,6 +122,45 @@
 						<p><b>Polycystic ovary syndrome</b>
 						<br>For women, having polycystic ovary syndrome — a common condition characterized by irregular menstrual periods, excess hair growth and obesity — increases the risk of diabetes.</p>
 					</li>
+				</ul>
+				
+				<h3><a name="3">Complications</a></h3>
+				<p>Type 2 diabetes can be easy to ignore, especially in the early stages when you're feeling fine. But diabetes affects many major organs, including your heart, blood vessels, nerves, eyes and kidneys. Controlling your blood sugar levels can help prevent these complications.
+				Although long-term complications of diabetes develop gradually, they can eventually be disabling or even life-threatening. Some of the potential complications of diabetes include:</p>
+				<ul>
+					<li>
+						<p><b>Heart and blood vessel disease</b>
+						<br>Diabetes dramatically increases the risk of various cardio-vascular problems, including coronary artery disease with chest pain (angina), heart attack, stroke, narrowing of arteries (atherosclerosis) and high blood pressure.</p>
+					</li>
+					<li>
+						<p><b>Nerve damage (neuropathy)</b>
+						<br>Excess sugar can injure the walls of the tiny blood vessels (capillaries) that nourish your nerves, especially in the legs. This can cause tingling, numbness, burning or pain that usually begins at the tips of the toes or fingers and gradually spreads upward. Poorly controlled blood sugar can eventually cause you to lose all sense of feeling in the affected limbs. Damage to the nerves that control digestion can cause problems with nausea, vomiting, diarrhea or constipation. For men, erectile dysfunction may be an issue.</p>
+					</li>
+					<li>
+						<p><b>Kidney damage (nephropathy)</b>
+						<br>The kidneys contain millions of tiny blood vessel clusters that filter waste from your blood. Diabetes can damage this delicate filtering system. Severe damage can lead to kidney failure or irreversible end-stage kidney disease, which often eventually requires dialysis or a kidney transplant.</p>
+					</li>
+					<li>
+						<p><b>Eye damage</b>
+						<br>Diabetes can damage the blood vessels of the retina (diabetic retinopathy), potentially leading to blindness. Diabetes also increases the risk of other serious vision conditions, such as cataracts and glaucoma.</p>
+					</li>
+					<li>
+						<p><b>Foot damage</b>
+						<br>Nerve damage in the feet or poor blood flow to the feet increases the risk of various foot complications. Left untreated, cuts and blisters can become serious infections, which may heal poorly. Severe damage might require toe, foot or leg amputation.</p>
+					</li>
+					<li>
+						<p><b>Hearing impairment</b>
+						<br>Hearing problems are more common in people with diabetes</p>
+					</li>
+					<li>
+						<p><b>Skin conditions</b>
+						<br>Diabetes may leave you more susceptible to skin problems, including bacterial and fungal infections.</p>
+					</li>
+					<li>
+						<p><b>Alzheimer's disease</b>
+						<br>Type 2 diabetes may increase the risk of Alzheimer's disease. The poorer your blood sugar control, the greater the risk appears to be. The exact connection between these two conditions still remains unclear.</p>
+					</li>
+					
 				</ul>
 			</div>
 		</div>

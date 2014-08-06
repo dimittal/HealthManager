@@ -19,6 +19,8 @@ function takeToSignup(){
 </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="description" content="Kronica provides health monitoring and education solutions for diseases like Diabetes, Liver issues and in general">
+
 <title>Welcome | Health Manager</title>
 <body>
 
