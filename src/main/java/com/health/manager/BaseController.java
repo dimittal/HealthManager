@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.sql.Date;
 
 import org.hibernate.Session;
@@ -41,6 +42,14 @@ public class BaseController {
 
 		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return "login";
+
+	}
+	
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String about(ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "about";
 
 	}
 	
@@ -274,8 +283,8 @@ public class BaseController {
 		user.setPassword("1q2w3e4r");
 		user.setDateOfBirth(Date.valueOf("1990-08-14"));
 		user.setGender("M");
-		user.setPhoneNumber(1234567889L);
-		user.setUserType(2L);
+		user.setPhoneNumber(1234567889);
+		user.setUserType(1);
 		user.setTimeCreated(Date.valueOf("2014-09-23"));
 		
 		System.out.println(save(user));
@@ -284,12 +293,12 @@ public class BaseController {
 
 	}	
 	
-	private static Long save(UserDO user) {
+	private static int save(UserDO user) {
 	    SessionFactory sf = HibernateUtil.getSessionFactory();
 	    Session session = sf.openSession();
 	    session.beginTransaction();
 	 
-	    Long id = (Long) session.save(user);
+	    int id = (Integer) session.save(user);
 	    user.setId(id);
 	         
 	    session.getTransaction().commit();

@@ -1,6 +1,8 @@
 package com.health.manager.hibernate;
 
+import java.math.BigInteger;
 import java.sql.Date;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +15,8 @@ import javax.persistence.Table;
 public class UserDO {
 
 	@Id
-    @GeneratedValue
-    private Long id;
+	@GeneratedValue(strategy = IDENTITY)
+    private int id;
      
     @Column(name="first_name")
     private String firstName;
@@ -26,13 +28,13 @@ public class UserDO {
     private Date dateOfBirth;
      
     @Column(name="phone_number")
-    private Long phoneNumber;
+    private int phoneNumber;
  
     @Column(name="email_address")
     private String emailAddress;
     
     @Column(name="user_type")
-    private Long userType;
+    private int userType;
     
     @Column(name="time_created")
     private Date timeCreated;
@@ -43,11 +45,11 @@ public class UserDO {
     @Column(name="gender")
     private String gender;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -75,11 +77,11 @@ public class UserDO {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Long getPhoneNumber() {
+	public int getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Long phoneNumber) {
+	public void setPhoneNumber(int phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -91,11 +93,11 @@ public class UserDO {
 		this.emailAddress = emailAddress;
 	}
 
-	public Long getUserType() {
+	public int getUserType() {
 		return userType;
 	}
 
-	public void setUserType(Long userType) {
+	public void setUserType(int userType) {
 		this.userType = userType;
 	}
 

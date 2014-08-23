@@ -137,6 +137,12 @@
       
       <dependency>
 	      <groupId>org.hibernate</groupId>
+	      <artifactId>hibernate-validator</artifactId>
+	      <version>4.2.0.Final</version>
+	   </dependency>
+      
+      <dependency>
+	      <groupId>org.hibernate</groupId>
 	      <artifactId>ejb3-persistence</artifactId>
 	      <version>1.0.1.GA</version>
 	    </dependency>
@@ -144,6 +150,12 @@
 	      <groupId>org.hibernate</groupId>
 	      <artifactId>hibernate-annotations</artifactId>
 	      <version>3.3.1.GA</version>
+	      <exclusions>
+	      	<exclusion>
+	      		<artifactId>asm</artifactId>
+	      		<groupId>asm</groupId>
+	      	</exclusion>
+	      </exclusions>
 	    </dependency>
 	    <dependency>
 	      <groupId>mysql</groupId>
