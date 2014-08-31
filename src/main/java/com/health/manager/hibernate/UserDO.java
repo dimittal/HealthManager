@@ -16,7 +16,7 @@ public class UserDO {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-    private int id;
+    private Integer id;
      
     @Column(name="first_name")
     private String firstName;
@@ -28,13 +28,13 @@ public class UserDO {
     private Date dateOfBirth;
      
     @Column(name="phone_number")
-    private int phoneNumber;
+    private Long phoneNumber;
  
     @Column(name="email_address")
     private String emailAddress;
     
     @Column(name="user_type")
-    private int userType;
+    private Integer userType;
     
     @Column(name="time_created")
     private Date timeCreated;
@@ -44,12 +44,24 @@ public class UserDO {
     
     @Column(name="gender")
     private String gender;
+    
+    @Column(name="height")
+    private Integer height;
+    
+    @Column(name="weight")
+    private Integer weight;
 
-	public int getId() {
+    @Column(name="blood_group")
+    private String bloodGroup;
+    
+    @Column(name="occupation")
+    private String occupation;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -77,11 +89,11 @@ public class UserDO {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public int getPhoneNumber() {
+	public Long getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(Long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -93,11 +105,11 @@ public class UserDO {
 		this.emailAddress = emailAddress;
 	}
 
-	public int getUserType() {
+	public Integer getUserType() {
 		return userType;
 	}
 
-	public void setUserType(int userType) {
+	public void setUserType(Integer userType) {
 		this.userType = userType;
 	}
 
@@ -124,4 +136,38 @@ public class UserDO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+
+	public Integer getHeight() {
+		return height;
+	}
+
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+
+	public Integer getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
+	public String getBloodGroup() {
+		return bloodGroup;
+	}
+
+	public void setBloodGroup(String bloodGroup) {
+		this.bloodGroup = bloodGroup;
+	}
+
+	public String getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+
+	
 }

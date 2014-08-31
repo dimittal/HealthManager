@@ -71,6 +71,7 @@
 			              			<li class="active"><a href="index.html">Home</a></li>
 			              			<li><a href="/HealthManager/about">About</a></li>
 									<li><a href="/HealthManager/education">Learn</a></li>
+									<li><a href="/HealthManager/login">Login</a></li>
 			              			<li class="dropdown">
 			                			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
 			                			<ul class="dropdown-menu">

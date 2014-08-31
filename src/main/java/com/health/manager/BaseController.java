@@ -7,9 +7,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.sql.Date;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.health.manager.dal.UserDALManager;
 import com.health.manager.hibernate.HibernateUtil;
 import com.health.manager.hibernate.UserDO;
 
@@ -45,11 +48,27 @@ public class BaseController {
 
 	}
 	
+	@RequestMapping(value = "/adminDashboard", method = RequestMethod.GET)
+	public String adminDashboard(ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "forms/adminDashboard";
+
+	}
+	
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
 	public String about(ModelMap model) {
 
 		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return "about";
+
+	}
+	
+	@RequestMapping(value = "/forms", method = RequestMethod.GET)
+	public String adminForms(ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "forms";
 
 	}
 	
@@ -72,7 +91,7 @@ public class BaseController {
 
 	}
 	
-	@RequestMapping(value = "/newUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/forms/newUser", method = RequestMethod.POST)
 	public String newUser(@ModelAttribute("user") 
 									User user, ModelMap model) {
 
@@ -83,31 +102,70 @@ public class BaseController {
 							user.getLastName() + " " + 
 							user.getDateOfBirth());
 		
-		String response = null;
-		UserManager manager = new UserManager();
-		try {
-			response = manager.addUser(user);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
 		
-		if (response == null){
-			model.addAttribute("errorMessage", "Sorry something went wrong!");
-			return "signup";
-		}
-		
-		JSONObject jObject = (JSONObject) JSONValue.parse(response);
-		
-		System.out.println("Inside Dashboard setup call");
-		model.addAttribute("userId", (String) jObject.get("objectId"));
-		model.addAttribute("token", (String) jObject.get("sessionToken"));
-		model.addAttribute("firstName", user.getFirstName());
-		model.addAttribute("lastName", user.getLastName());
+		int userId = UserDALManager.createUser(user);
 
 		// Spring uses InternalResourceViewResolver and return back index.jsp
-		return "dashboard";
+		return "forms/adminDashboard";
 				
+	}
+	
+	@RequestMapping(value = "/forms/newSecondaryUser", method = RequestMethod.POST)
+	public String newSecondaryUser(@ModelAttribute("secondaryUser") 
+									SecondaryUser user, ModelMap model) {
+
+		System.out.println(user.getEmail() + " " + 
+							user.getFirstName() + " " + 
+							user.getLastName() + " " + 
+							user.getDateOfBirth() + " " +
+							user.getPhoneNumber() + " " + 
+							user.getPrimaryUserId());
+		
+		
+		//int userId = UserDALManager.createUser(user);
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "forms/addSecondaryUser";
+				
+	}
+	
+	@RequestMapping(value = "/data/viewPatient", method = RequestMethod.POST)
+	public String findUser(@RequestParam("email") 
+									String email, ModelMap model) {
+
+		System.out.println(email);
+		
+		User user = UserDALManager.findUser(email);
+		
+		model.addAttribute("patient_name", user.getFirstName() + " " + user.getLastName());
+		model.addAttribute("uid", user.getUid());
+		model.addAttribute("phone_number", user.getPhoneNumber());
+		model.addAttribute("age", user.getDateOfBirth());
+		model.addAttribute("gender", user.getGender().equalsIgnoreCase("M") ? "Male" : "Female");
+		
+		addDummyData(model);
+		
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "data/viewPatient";
+				
+	}
+	
+	private void addDummyData(ModelMap model){
+		
+		for (int i = 0; i < 10; i++){
+			model.addAttribute("pre_date_" + i, i);
+			model.addAttribute("pre_reading_" + i, 120 + (i*i)%8);
+		}
+		
+		for (int i = 0; i < 10; i++){
+			model.addAttribute("post_date_" + i, i);
+			model.addAttribute("post_reading_" + i, 120 + (i*i)%12);
+		}
+		
+		for (int i = 0; i < 10; i++){
+			model.addAttribute("other_date_" + i, i);
+			model.addAttribute("other_reading_" + i, 120 + (i*i)%4);
+		}
 	}
 	
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
@@ -116,38 +174,13 @@ public class BaseController {
 		model.addAttribute("message",
 				"Maven Web Project");
 		
-		System.out.println(user.getUsername() + user.getPassword());
+		System.out.println(user.getEmail() + " : "+ user.getPassword());
 		
-		if (user == null || user.getUsername() == null || user.getPassword() == null){
-			System.out.println("Incomplete Info");
-			model.addAttribute("errorMessage", "Invalid username or password!");
-			return "login";
+		if (user.getEmail().equalsIgnoreCase("admin@kronica.in") && 
+				user.getPassword().equalsIgnoreCase("1q2w3e4r")){
+			return "forms/adminDashboard";
 		}
 		
-		UserManager manager = new UserManager();
-		String token = null;
-		try {
-			token = manager.loginUser(user.getUsername(), user.getPassword());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if (token == null){
-			System.out.println("Invalid User");
-			model.addAttribute("errorMessage", "Invalid username or password!");
-			return "login";
-		}
-			
-		JSONObject jObject = (JSONObject) JSONValue.parse(token);
-		
-		System.out.println("Inside Dashboard setup call");
-		model.addAttribute("userId", (String) jObject.get("objectId"));
-		model.addAttribute("token", (String) jObject.get("sessionToken"));
-		model.addAttribute("firstName", (String) jObject.get("firstName"));
-		model.addAttribute("lastName", (String) jObject.get("lastName"));
-
-		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return "dashboard";
 	}
 	
@@ -229,6 +262,44 @@ public class BaseController {
 		}
 		
 	}
+	
+	@RequestMapping(value = "/forms/loadUsers", method = RequestMethod.GET)
+	public @ResponseBody String loadUsers(ModelMap model) {
+				
+		List<User> userList = UserDALManager.listAllPatients();
+		
+		return formatUserData(userList);
+	}
+	
+	private static String formatUserData(List<User> users){
+		
+		if (users != null){
+			
+			JSONObject targetObject = new JSONObject();
+			
+			JSONArray userArray = new JSONArray();
+			
+			if (!users.isEmpty()){
+				for (User user: users){
+					JSONObject obj = new JSONObject();
+					obj.put("email", user.getEmail());
+					obj.put("first_name", user.getFirstName());
+					obj.put("last_name", user.getLastName());
+					obj.put("uid", user.getUid());
+					
+					userArray.add(obj);
+				}
+			}
+			targetObject.put("users", userArray);
+		
+			String res = targetObject.toJSONString();
+			
+			System.out.println(res);
+			return res;
+		}
+		
+		return null;
+	}
 
 	private String loadPrescriptions(UserManager manager, String userId) {
 		System.out.println("Reading prescriptions for : " + userId);
@@ -271,41 +342,22 @@ public class BaseController {
 		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return "articles/article_" + articleNum;
 
-	}	
+	}
 	
-	@RequestMapping(value = "/ok", method = RequestMethod.GET)
-	public String ok(ModelMap model) {
+	@RequestMapping(value = "/forms/{form_num}", method = RequestMethod.GET)
+	public String openForm(@PathVariable("form_num") String formNum, ModelMap model) {
 
-		UserDO user = new UserDO();
-		user.setFirstName("Dipesh");
-		user.setLastName("Mittal");
-		user.setEmailAddress("dipeshmittal@live.com");
-		user.setPassword("1q2w3e4r");
-		user.setDateOfBirth(Date.valueOf("1990-08-14"));
-		user.setGender("M");
-		user.setPhoneNumber(1234567889);
-		user.setUserType(1);
-		user.setTimeCreated(Date.valueOf("2014-09-23"));
-		
-		System.out.println(save(user));
-		
-		return "articles";
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "forms/" + formNum;
 
-	}	
+	}
 	
-	private static int save(UserDO user) {
-	    SessionFactory sf = HibernateUtil.getSessionFactory();
-	    Session session = sf.openSession();
-	    session.beginTransaction();
-	 
-	    int id = (Integer) session.save(user);
-	    user.setId(id);
-	         
-	    session.getTransaction().commit();
-	         
-	    session.close();
-	 
-	    return user.getId();
+	@RequestMapping(value = "/data/{dataPage_num}", method = RequestMethod.GET)
+	public String openDataPage(@PathVariable("dataPage_num") String dataPageNum, ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "data/" + dataPageNum;
+
 	}
 
 }

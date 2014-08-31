@@ -124,11 +124,15 @@ public class UserManager {
 
 	private long extractTimeStampFromDate(String date) {
 
-		String[] dateArray = date.split("-");
-		Calendar cal = Calendar.getInstance();
-		cal.set(Integer.parseInt(dateArray[0]), Integer.parseInt(dateArray[1]), Integer.parseInt(dateArray[2]));
+		if (date != null && !date.isEmpty()){
+			String[] dateArray = date.split("-");
+			Calendar cal = Calendar.getInstance();
+			cal.set(Integer.parseInt(dateArray[0]), Integer.parseInt(dateArray[1]), Integer.parseInt(dateArray[2]));
+			
+			return cal.getTimeInMillis()/1000;
+		}
 		
-		return cal.getTimeInMillis()/1000;
+		return 0;
 	}
 	
 	public String loginUser(String username, String password) throws Exception{

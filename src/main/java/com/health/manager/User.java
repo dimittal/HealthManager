@@ -2,6 +2,7 @@ package com.health.manager;
 
 public class User {
 
+	private String uid;
 	private String username;
 	private String dateOfBirth;
 	private String firstName;
@@ -9,6 +10,13 @@ public class User {
 	private String password;
 	private String confirmPassword;
 	private String email;
+	private String gender;
+	private String height;
+	private String weight;
+	private String bloodGroup;
+	private String occupation;
+	private String phoneNumber;
+	private String signUpDate;
 	
 	public String getUsername() {
 		return username;
@@ -52,6 +60,53 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getHeight() {
+		return height;
+	}
+	public void setHeight(String height) {
+		this.height = height;
+	}
+	public String getWeight() {
+		return weight;
+	}
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+	public String getBloodGroup() {
+		return bloodGroup;
+	}
+	public void setBloodGroup(String bloodGroup) {
+		this.bloodGroup = bloodGroup;
+	}
+	public String getOccupation() {
+		return occupation;
+	}
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getSignUpDate() {
+		return signUpDate;
+	}
+	public void setSignUpDate(String signUpDate) {
+		this.signUpDate = signUpDate;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 	
 }

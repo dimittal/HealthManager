@@ -5,14 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.health.manager.UserManager;
+import com.health.manager.dal.UserDALManager;
 
 public class UserManagerTest {
 
-//	@Test(enable = false)
+//	@Test
 //	public void testgetMedicine() throws Exception {
 //		
-//		UserManager manager = new UserManager();
-//		manager.readMedicine();
+//		UserDALManager.listAllPatients();
 //	}
 
 }
