@@ -10,8 +10,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.health.manager.SecondaryUser;
 import com.health.manager.User;
 import com.health.manager.hibernate.HibernateUtil;
+import com.health.manager.hibernate.SecondaryUserDO;
 import com.health.manager.hibernate.UserDO;
 
 public class UserDALManager {
@@ -31,6 +33,23 @@ public class UserDALManager {
 		userDO.setHeight(Integer.parseInt(user.getHeight()));
 		userDO.setWeight(Integer.parseInt(user.getWeight()));
 		userDO.setOccupation(user.getOccupation());
+		userDO.setTimeCreated(getCurrentSQLDate());
+		
+		int userId = save(userDO);
+		
+		return userId;
+	}
+	
+	public static int createSecondaryUser(SecondaryUser user){
+		
+		SecondaryUserDO userDO = new SecondaryUserDO();
+		userDO.setFirstName(user.getFirstName());
+		userDO.setLastName(user.getLastName());
+		userDO.setPrimaryUserId(user.getPrimaryUserId());
+		userDO.setEmailAddress(user.getEmail());
+		userDO.setDateOfBirth(Date.valueOf(user.getDateOfBirth()));
+		userDO.setPhoneNumber(new Long(user.getPhoneNumber()));
+		userDO.setRelationshipWithPrimaryUser(user.getRelationshipWithPrimaryUser());
 		userDO.setTimeCreated(getCurrentSQLDate());
 		
 		int userId = save(userDO);
@@ -135,6 +154,21 @@ public class UserDALManager {
 	}
 	
 	private static int save(UserDO user) {
+	    SessionFactory sf = HibernateUtil.getSessionFactory();
+	    Session session = sf.openSession();
+	    session.beginTransaction();
+	 
+	    int id = (Integer) session.save(user);
+	    user.setId(id);
+	         
+	    session.getTransaction().commit();
+	         
+	    session.close();
+	 
+	    return user.getId();
+	}
+	
+	private static int save(SecondaryUserDO user) {
 	    SessionFactory sf = HibernateUtil.getSessionFactory();
 	    Session session = sf.openSession();
 	    session.beginTransaction();

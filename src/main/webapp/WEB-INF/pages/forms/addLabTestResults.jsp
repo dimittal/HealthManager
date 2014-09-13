@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Add Secondary User | Kronica</title>
+    <title>Add Lab Test Results | Kronica</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -29,8 +29,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <script>
+
+	<script>
 	function fetchUsers(){
 	
 	    $.ajax({
@@ -330,10 +330,10 @@
                             <a href="/HealthManager/forms"><i class="fa fa-edit fa-fw"></i> Forms<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a class="active" href="/HealthManager/forms/addUser">Add User</a>
+                                    <a href="/HealthManager/forms/addUser">Add User</a>
                                 </li>
                                 <li>
-                                    <a href="/HealthManager/forms/addPrescription">Add Prescription</a>
+                                    <a class="active" href="/HealthManager/forms/addPrescription">Add Prescription</a>
                                 </li>
                                 <li>
                                     <a href="notifications.html">Notifications</a>
@@ -420,7 +420,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Add Secondary User</h1>
+                    <h1 class="page-header">Add Precription</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -450,45 +450,244 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Enter Secondary User information
+                            Enter Lab Tests Results
                         </div>
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form id="secondaryUser" role="form" method="post" action="newSecondaryUser" onsubmit="selectCurrentUser();">
-                                        <div class="form-group">
-                                            <label>Email Address</label>
-                                            <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>First Name</label>
-                                            <input class="form-control" placeholder="eg: Ujjwal" name="firstName">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Last Name</label>
-                                            <input class="form-control" placeholder="eg: Chaudhry" name="lastName">
-                                        </div>
-                                        <div class="form-group">
-											 <label>Date of birth</label>
-											 <input type="date" class="form-control" name="dateOfBirth">
+	                        <ul class="nav nav-tabs">
+								<li class="active"><a href="#blood" data-toggle="tab">Blood</a>
+								</li>
+								<li><a href="#foot" data-toggle="tab">Foot</a></li>
+								<li><a href="#retina" data-toggle="tab">Retina</a></li>
+								<li><a href="#heart" data-toggle="tab">Heart</a></li>
+							</ul>
+		
+									<!-- Tab panes -->
+									<div class="tab-content">
+										<div class="tab-pane fade in active" id="blood">
+											<br>
+											<div class="row">
+												<div class="col-lg-6">
+				                                    <form id="prescription" role="form" method="post" action="newPrescription">
+				                                        <div class="form-group">
+				                                            <label>Doctor Name</label>
+				                                            <input class="form-control" placeholder="eg: Dr. Satnam" name="doctorName" autofocus>
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Clinic/Hospital</label>
+				                                            <input class="form-control" placeholder="eg: Escorts Institute" name="hospitalName">
+				                                        </div>
+				                                        <div class="form-group">
+															 <label>Date of issue</label>
+															 <input type="date" class="form-control" name="dateOfPrescription">
+														</div>
+														<div class="form-group">
+				                                            <label>Symptoms (comma seperated)</label>
+				                                            <input class="form-control" placeholder="eg: nausea, stomach pain" name="symptoms">
+				                                        </div>
+														<div class="form-group">
+				                                            <label>Phone Number</label>
+				                                            <input class="form-control" name="phoneNumber">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Height (in cms.)</label>
+				                                            <input class="form-control" name="height">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Weight (in kg)</label>
+				                                            <input class="form-control" name="weight">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Blood Group</label>
+				                                            <select class="form-control">
+				                                                <option>A+</option>
+				                                                <option>A-</option>
+				                                                <option>B+</option>
+				                                                <option>B-</option>
+				                                                <option>AB+</option>
+				                                                <option>AB-</option>
+				                                                <option>O+</option>
+				                                                <option>O-</option>
+				                                            </select>
+				                                        </div>
+				                                        <div class="form-group">
+				                                        	<input id="currentUserFormField" hidden="true" name="primaryUserId">
+				                                        </div>
+				                                        <button type="submit" class="btn btn-default">Submit Button</button>
+				                                        <button type="reset" class="btn btn-default">Reset Button</button>
+				                                    </form>
+				                                </div>
+											</div>
 										</div>
-										<div class="form-group">
-                                            <label>Phone Number</label>
-                                            <input class="form-control" name="phoneNumber">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Relationship with patient</label>
-                                            <input class="form-control" placeholder="eg: mother, friend" name="relationshipWithPrimaryUser">
-                                        </div>
-                                        <div class="form-group">
-                                        	<input id="currentUserFormField" hidden="true" name="primaryUserId">
-                                        </div>
-                                        <button type="submit" class="btn btn-default">Submit Button</button>
-                                        <button type="reset" class="btn btn-default">Reset Button</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- /.row (nested) -->
+										
+										<div class="tab-pane fade" id="foot">
+											<br>
+											<div class="row">
+												<div class="col-lg-6">
+				                                    <form id="prescription" role="form" method="post" action="newPrescription">
+				                                        <div class="form-group">
+				                                            <label>Doctor Name</label>
+				                                            <input class="form-control" placeholder="eg: Dr. Satnam" name="doctorName" autofocus>
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Clinic/Hospital</label>
+				                                            <input class="form-control" placeholder="eg: Escorts Institute" name="hospitalName">
+				                                        </div>
+				                                        <div class="form-group">
+															 <label>Date of issue</label>
+															 <input type="date" class="form-control" name="dateOfPrescription">
+														</div>
+														<div class="form-group">
+				                                            <label>Symptoms (comma seperated)</label>
+				                                            <input class="form-control" placeholder="eg: nausea, stomach pain" name="symptoms">
+				                                        </div>
+														<div class="form-group">
+				                                            <label>Phone Number</label>
+				                                            <input class="form-control" name="phoneNumber">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Height (in cms.)</label>
+				                                            <input class="form-control" name="height">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Weight (in kg)</label>
+				                                            <input class="form-control" name="weight">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Blood Group</label>
+				                                            <select class="form-control">
+				                                                <option>A+</option>
+				                                                <option>A-</option>
+				                                                <option>B+</option>
+				                                                <option>B-</option>
+				                                                <option>AB+</option>
+				                                                <option>AB-</option>
+				                                                <option>O+</option>
+				                                                <option>O-</option>
+				                                            </select>
+				                                        </div>
+				                                        <div class="form-group">
+				                                        	<input id="currentUserFormField" hidden="true" name="primaryUserId">
+				                                        </div>
+				                                        <button type="submit" class="btn btn-default">Submit Button</button>
+				                                        <button type="reset" class="btn btn-default">Reset Button</button>
+				                                    </form>
+				                                </div>
+											</div>
+										</div>
+										
+										<div class="tab-pane fade" id="retina">
+											<br>
+											<div class="row">
+												<div class="col-lg-6">
+				                                    <form id="prescription" role="form" method="post" action="newPrescription">
+				                                        <div class="form-group">
+				                                            <label>Doctor Name</label>
+				                                            <input class="form-control" placeholder="eg: Dr. Satnam" name="doctorName" autofocus>
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Clinic/Hospital</label>
+				                                            <input class="form-control" placeholder="eg: Escorts Institute" name="hospitalName">
+				                                        </div>
+				                                        <div class="form-group">
+															 <label>Date of issue</label>
+															 <input type="date" class="form-control" name="dateOfPrescription">
+														</div>
+														<div class="form-group">
+				                                            <label>Symptoms (comma seperated)</label>
+				                                            <input class="form-control" placeholder="eg: nausea, stomach pain" name="symptoms">
+				                                        </div>
+														<div class="form-group">
+				                                            <label>Phone Number</label>
+				                                            <input class="form-control" name="phoneNumber">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Height (in cms.)</label>
+				                                            <input class="form-control" name="height">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Weight (in kg)</label>
+				                                            <input class="form-control" name="weight">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Blood Group</label>
+				                                            <select class="form-control">
+				                                                <option>A+</option>
+				                                                <option>A-</option>
+				                                                <option>B+</option>
+				                                                <option>B-</option>
+				                                                <option>AB+</option>
+				                                                <option>AB-</option>
+				                                                <option>O+</option>
+				                                                <option>O-</option>
+				                                            </select>
+				                                        </div>
+				                                        <div class="form-group">
+				                                        	<input id="currentUserFormField" hidden="true" name="primaryUserId">
+				                                        </div>
+				                                        <button type="submit" class="btn btn-default">Submit Button</button>
+				                                        <button type="reset" class="btn btn-default">Reset Button</button>
+				                                    </form>
+				                                </div>
+											</div>
+										</div>
+										
+										<div class="tab-pane fade" id="heart">
+											<br>
+											<div class="row">
+												<div class="col-lg-6">
+				                                    <form id="prescription" role="form" method="post" action="newPrescription">
+				                                        <div class="form-group">
+				                                            <label>Doctor Name</label>
+				                                            <input class="form-control" placeholder="eg: Dr. Satnam" name="doctorName" autofocus>
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Clinic/Hospital</label>
+				                                            <input class="form-control" placeholder="eg: Escorts Institute" name="hospitalName">
+				                                        </div>
+				                                        <div class="form-group">
+															 <label>Date of issue</label>
+															 <input type="date" class="form-control" name="dateOfPrescription">
+														</div>
+														<div class="form-group">
+				                                            <label>Symptoms (comma seperated)</label>
+				                                            <input class="form-control" placeholder="eg: nausea, stomach pain" name="symptoms">
+				                                        </div>
+														<div class="form-group">
+				                                            <label>Phone Number</label>
+				                                            <input class="form-control" name="phoneNumber">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Height (in cms.)</label>
+				                                            <input class="form-control" name="height">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Weight (in kg)</label>
+				                                            <input class="form-control" name="weight">
+				                                        </div>
+				                                        <div class="form-group">
+				                                            <label>Blood Group</label>
+				                                            <select class="form-control">
+				                                                <option>A+</option>
+				                                                <option>A-</option>
+				                                                <option>B+</option>
+				                                                <option>B-</option>
+				                                                <option>AB+</option>
+				                                                <option>AB-</option>
+				                                                <option>O+</option>
+				                                                <option>O-</option>
+				                                            </select>
+				                                        </div>
+				                                        <div class="form-group">
+				                                        	<input id="currentUserFormField" hidden="true" name="primaryUserId">
+				                                        </div>
+				                                        <button type="submit" class="btn btn-default">Submit Button</button>
+				                                        <button type="reset" class="btn btn-default">Reset Button</button>
+				                                    </form>
+				                                </div>
+											</div>
+										</div>
+									</div>
+								</div>
                         </div>
                         <!-- /.panel-body -->
                     </div>

@@ -203,6 +203,9 @@
                                     <a href="/HealthManager/forms/addSecondaryUser">Add Secondary User</a>
                                 </li>
                                 <li>
+                                    <a href="/HealthManager/forms/addLabTestResults">Add Lab Test Results</a>
+                                </li>
+                                <li>
                                     <a href="/HealthManager/forms/addPrescription">Add Prescription</a>
                                 </li>
                                 <li>

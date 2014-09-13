@@ -119,13 +119,14 @@ public class BaseController {
 							user.getLastName() + " " + 
 							user.getDateOfBirth() + " " +
 							user.getPhoneNumber() + " " + 
-							user.getPrimaryUserId());
+							user.getPrimaryUserId() + " " +
+							user.getRelationshipWithPrimaryUser());
 		
 		
-		//int userId = UserDALManager.createUser(user);
+		int userId = UserDALManager.createSecondaryUser(user);
 
 		// Spring uses InternalResourceViewResolver and return back index.jsp
-		return "forms/addSecondaryUser";
+		return "forms/adminDashboard";
 				
 	}
 	
