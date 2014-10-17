@@ -2,12 +2,15 @@ package com.health.manager.hibernate;
 
 import java.math.BigInteger;
 import java.sql.Date;
+import java.util.Set;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -56,7 +59,7 @@ public class UserDO {
     
     @Column(name="occupation")
     private String occupation;
-
+    
 	public Integer getId() {
 		return id;
 	}

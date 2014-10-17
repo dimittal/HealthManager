@@ -18,6 +18,8 @@
  	<mvc:resources mapping="/js/**" location="/resources/js/" />
  	<mvc:resources mapping="/less/**" location="/resources/less/" />
  	<mvc:resources mapping="/font-awesome-4.1.0/**" location="/resources/font-awesome-4.1.0/" />
+ 	<mvc:resources mapping="/images/**" location="/resources/images/" />
+ 	<mvc:resources mapping="/vendors/**" location="/resources/vendors/" />
  	<mvc:resources mapping="/fonts/**" location="/resources/fonts/" />
  
 	<bean

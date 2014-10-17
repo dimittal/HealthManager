@@ -6,10 +6,10 @@
 <hibernate-configuration>
     <session-factory>
         <!-- Database connection settings -->
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://104.131.212.187:3306</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">1q2w3e4r</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://104.131.212.187:3306/kronica</property>
+        <property name="hibernate.connection.username">kronicaapp</property>
+        <property name="hibernate.connection.password">Xr69XTPzMEvFqYZm</property>
          
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">1</property>
@@ -24,12 +24,12 @@
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
          
         <!-- Echo all executed SQL to stdout -->
-        <property name="show_sql">false</property>
+        <property name="show_sql">true</property>
          
         <property name="hbm2ddl.auto">validate</property>
-  
-        <mapping resource="com.health.manager.hibernate.UserDO"/>
-         
+           <mapping class="com.health.manager.hibernate.UserDO"></mapping>
+           <mapping class="com.health.manager.hibernate.SecondaryUserDO"></mapping>
+           <mapping class="com.health.manager.hibernate.GlucoReadingDO"></mapping>
           
     </session-factory>
 </hibernate-configuration>

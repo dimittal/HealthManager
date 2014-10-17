@@ -9,6 +9,9 @@ import java.math.BigInteger;
 import java.sql.Date;
 import java.util.List;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.health.manager.dal.GlucoReadingsDALManager;
 import com.health.manager.dal.UserDALManager;
 import com.health.manager.hibernate.HibernateUtil;
 import com.health.manager.hibernate.UserDO;
@@ -53,6 +57,14 @@ public class BaseController {
 
 		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return "forms/adminDashboard";
+
+	}
+	
+	@RequestMapping(value = "/educator", method = RequestMethod.GET)
+	public String educator(ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "educator";
 
 	}
 	
@@ -236,32 +248,24 @@ public class BaseController {
 		
 	}
 	
-	@RequestMapping(value = "/loadPrescriptions", method = RequestMethod.GET)
-	public @ResponseBody String loadPrescriptions(@RequestParam("token") String token, ModelMap model) {
+	@RequestMapping(value = "/fetchHistory", method = RequestMethod.GET)
+	public @ResponseBody String loadPastReadingsForUser(ModelMap model, @RequestParam("uid") String uid,
+												@RequestParam("type") String type) {
 		
-		UserManager manager = new UserManager();
-		String userId = null;
+		List<GlucoReading> readingList = GlucoReadingsDALManager.getPastReadingsByUser(Integer.parseInt(uid), 
+				Integer.parseInt(type), 5);
 		
-		try {
-			String res = manager.getUserFromSessionToken(token);
-			
-			JSONObject jObject = (JSONObject) JSONValue.parse(res);
-			
-			userId = (String) jObject.get("objectId");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		return formatReadingsData(readingList);
+				
+	}
+	
+	@RequestMapping(value = "/fetchGlucoseData", method = RequestMethod.GET)
+	public @ResponseBody String loadGlucoseData(ModelMap model) {
 		
-		if (userId == null){
-			System.out.println("Invalid Session Token");
-			return null;
-		}
-		else {
-			String prescriptions = loadPrescriptions(manager, userId);
-			
-			return Util.formatPrescriptions(prescriptions);
-		}
+		List<GlucoReading> readingList = GlucoReadingsDALManager.getLatestReadings(5);
 		
+		return formatReadingsData(readingList);
+				
 	}
 	
 	@RequestMapping(value = "/forms/loadUsers", method = RequestMethod.GET)
@@ -293,6 +297,39 @@ public class BaseController {
 			}
 			targetObject.put("users", userArray);
 		
+			String res = targetObject.toJSONString();
+			
+			System.out.println(res);
+			return res;
+		}
+		
+		return null;
+	}
+	
+	private static String formatReadingsData(List<GlucoReading> readings){
+		
+		if (readings != null){
+			
+			JSONObject targetObject = new JSONObject();
+			
+			JSONArray newReadingArray = new JSONArray();
+			
+			if (!readings.isEmpty()){
+				for (GlucoReading reading: readings){
+					JSONObject obj = new JSONObject();
+					obj.put("first_name", reading.getFirstName());
+					obj.put("last_name", reading.getLastName());
+					obj.put("uid", reading.getUid());
+					obj.put("time_taken", reading.getTimeTaken());
+					obj.put("value", reading.getValue());
+					obj.put("reading_type", reading.getReadingType());
+					obj.put("id", reading.getId());
+					
+					newReadingArray.add(obj);
+				}
+			}
+			targetObject.put("new_readings", newReadingArray);
+					
 			String res = targetObject.toJSONString();
 			
 			System.out.println(res);

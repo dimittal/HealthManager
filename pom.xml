@@ -165,7 +165,7 @@
 	</dependencies>
 	
 	<build>
-		<finalName>HealthManager</finalName>
+		<finalName>root</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
