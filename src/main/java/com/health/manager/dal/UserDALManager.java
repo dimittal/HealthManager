@@ -12,9 +12,12 @@ import org.hibernate.SessionFactory;
 
 import com.health.manager.SecondaryUser;
 import com.health.manager.User;
+import com.health.manager.UserHealthInfo;
 import com.health.manager.hibernate.HibernateUtil;
 import com.health.manager.hibernate.SecondaryUserDO;
+import com.health.manager.hibernate.UserAddressDO;
 import com.health.manager.hibernate.UserDO;
+import com.health.manager.hibernate.UserHealthInfoDO;
 
 public class UserDALManager {
 
@@ -28,6 +31,7 @@ public class UserDALManager {
 		userDO.setDateOfBirth(Date.valueOf(user.getDateOfBirth()));
 		userDO.setGender(getGender(user.getGender()));
 		userDO.setPhoneNumber(new Long(user.getPhoneNumber()));
+		userDO.setAlternatePhoneNumber(new Long(user.getAlternatePhoneNumber()));
 		userDO.setUserType(UserType.PATIENT.getUserType());
 		userDO.setBloodGroup(user.getBloodGroup());
 		userDO.setHeight(Integer.parseInt(user.getHeight()));
@@ -35,7 +39,12 @@ public class UserDALManager {
 		userDO.setOccupation(user.getOccupation());
 		userDO.setTimeCreated(getCurrentSQLDate());
 		
-		int userId = save(userDO);
+		UserAddressDO address = new UserAddressDO();
+		address.setHouseNumber(user.getAddressStreet());
+		address.setCity(user.getAddressCity());
+		address.setPincode(Integer.parseInt(user.getAddressPincode()));
+		
+		int userId = save(userDO, address);
 		
 		return userId;
 	}
@@ -55,6 +64,18 @@ public class UserDALManager {
 		int userId = save(userDO);
 		
 		return userId;
+	}
+	
+	public static void createUserHealthInfo(UserHealthInfo healthInfo){
+		
+		UserHealthInfoDO userHealthInfoDO = new UserHealthInfoDO();
+		userHealthInfoDO.setDoctorName(healthInfo.getDoctorName());
+		userHealthInfoDO.setGlucoDevice(1);
+		userHealthInfoDO.setTypeDiabetes(healthInfo.getTypeDiabetes());
+		userHealthInfoDO.setUserId(Integer.parseInt(healthInfo.getPrimaryUserId()));
+		userHealthInfoDO.setTimeCreated(getCurrentSQLDate());
+		
+		save(userHealthInfoDO);
 	}
 	
 	public static User findUser(String email){
@@ -153,13 +174,15 @@ public class UserDALManager {
 	    return list;
 	}
 	
-	private static int save(UserDO user) {
+	private static int save(UserDO user, UserAddressDO address) {
 	    SessionFactory sf = HibernateUtil.getSessionFactory();
 	    Session session = sf.openSession();
 	    session.beginTransaction();
 	 
 	    int id = (Integer) session.save(user);
 	    user.setId(id);
+	    
+	    session.save(address);
 	         
 	    session.getTransaction().commit();
 	         
@@ -181,5 +204,17 @@ public class UserDALManager {
 	    session.close();
 	 
 	    return user.getId();
+	}
+	
+	private static void save(UserHealthInfoDO user) {
+	    SessionFactory sf = HibernateUtil.getSessionFactory();
+	    Session session = sf.openSession();
+	    session.beginTransaction();
+	 
+	    session.save(user);
+	         
+	    session.getTransaction().commit();
+	         
+	    session.close();
 	}
 }

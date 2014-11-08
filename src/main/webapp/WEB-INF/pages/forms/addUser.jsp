@@ -454,6 +454,14 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label>Type of Diabetes</label>
+                                            <select class="form-control" name="typeDiabetes">
+                                                <option>Pre-Diabetes</option>
+                                                <option>Type-1</option>
+                                                <option>Type-2</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Gluco Device</label>
                                             <select class="form-control" name="glucoDevice">
                                             	<option>None</option>

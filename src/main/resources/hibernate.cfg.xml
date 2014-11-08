@@ -28,6 +28,8 @@
          
         <property name="hbm2ddl.auto">validate</property>
            <mapping class="com.health.manager.hibernate.UserDO"></mapping>
+           <mapping class="com.health.manager.hibernate.UserAddressDO"></mapping>
+           <mapping class="com.health.manager.hibernate.UserHealthInfoDO"></mapping>
            <mapping class="com.health.manager.hibernate.SecondaryUserDO"></mapping>
            <mapping class="com.health.manager.hibernate.GlucoReadingDO"></mapping>
           

@@ -16,8 +16,36 @@ public class User {
 	private String bloodGroup;
 	private String occupation;
 	private String phoneNumber;
+	private String alternatePhoneNumber;
+	private String addressStreet;
+	private String addressCity;
+	private String addressPincode;
 	private String signUpDate;
 	
+	public String getAlternatePhoneNumber() {
+		return alternatePhoneNumber;
+	}
+	public void setAlternatePhoneNumber(String alternatePhoneNumber) {
+		this.alternatePhoneNumber = alternatePhoneNumber;
+	}
+	public String getAddressStreet() {
+		return addressStreet;
+	}
+	public void setAddressStreet(String addressStreet) {
+		this.addressStreet = addressStreet;
+	}
+	public String getAddressCity() {
+		return addressCity;
+	}
+	public void setAddressCity(String addressCity) {
+		this.addressCity = addressCity;
+	}
+	public String getAddressPincode() {
+		return addressPincode;
+	}
+	public void setAddressPincode(String addressPincode) {
+		this.addressPincode = addressPincode;
+	}
 	public String getUsername() {
 		return username;
 	}

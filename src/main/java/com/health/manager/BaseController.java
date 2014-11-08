@@ -68,6 +68,38 @@ public class BaseController {
 
 	}
 	
+	@RequestMapping(value = "/customuser/create", method = RequestMethod.GET)
+	public String openAddUserForm(ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "addUser";
+
+	}
+	
+	@RequestMapping(value = "/customuser/createkin", method = RequestMethod.GET)
+	public String openAddUserkinForm(ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "addUserKin";
+
+	}
+	
+	@RequestMapping(value = "/customuser/createHealthInfo", method = RequestMethod.GET)
+	public String openAddUserHealthInfoForm(ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "addUserHealthInfo";
+
+	}
+	
+	@RequestMapping(value = "/customuser/viewUserInfo", method = RequestMethod.GET)
+	public String openUserInfoView(ModelMap model) {
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "viewUserInfo";
+
+	}
+	
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
 	public String about(ModelMap model) {
 
@@ -103,7 +135,7 @@ public class BaseController {
 
 	}
 	
-	@RequestMapping(value = "/forms/newUser", method = RequestMethod.POST)
+	@RequestMapping(value = "customuser/forms/newUser", method = RequestMethod.POST)
 	public String newUser(@ModelAttribute("user") 
 									User user, ModelMap model) {
 
@@ -116,13 +148,14 @@ public class BaseController {
 		
 		
 		int userId = UserDALManager.createUser(user);
+		model.addAttribute("primaryUserId", userId);
 
 		// Spring uses InternalResourceViewResolver and return back index.jsp
-		return "forms/adminDashboard";
+		return "addUserKin";
 				
 	}
 	
-	@RequestMapping(value = "/forms/newSecondaryUser", method = RequestMethod.POST)
+	@RequestMapping(value = "customuser/forms/newSecondaryUser", method = RequestMethod.POST)
 	public String newSecondaryUser(@ModelAttribute("secondaryUser") 
 									SecondaryUser user, ModelMap model) {
 
@@ -136,9 +169,22 @@ public class BaseController {
 		
 		
 		int userId = UserDALManager.createSecondaryUser(user);
+		model.addAttribute("primaryUserId", user.getPrimaryUserId());
 
 		// Spring uses InternalResourceViewResolver and return back index.jsp
-		return "forms/adminDashboard";
+		return "addUserHealthInfo";
+				
+	}
+	
+	@RequestMapping(value = "customuser/forms/createHealthInfo", method = RequestMethod.POST)
+	public String newUserHealthInfo(@ModelAttribute("userHealthInfo") 
+									UserHealthInfo userInfo, ModelMap model) {
+		
+		UserDALManager.createUserHealthInfo(userInfo);
+		model.addAttribute("primaryUserId", userInfo.getPrimaryUserId());
+
+		// Spring uses InternalResourceViewResolver and return back index.jsp
+		return "addUser";
 				
 	}
 	

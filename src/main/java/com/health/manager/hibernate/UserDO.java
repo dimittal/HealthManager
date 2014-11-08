@@ -32,6 +32,9 @@ public class UserDO {
      
     @Column(name="phone_number")
     private Long phoneNumber;
+    
+    @Column(name="alternate_phone_number")
+    private Long alternatePhoneNumber;
  
     @Column(name="email_address")
     private String emailAddress;
@@ -150,6 +153,14 @@ public class UserDO {
 
 	public Integer getWeight() {
 		return weight;
+	}
+
+	public Long getAlternatePhoneNumber() {
+		return alternatePhoneNumber;
+	}
+
+	public void setAlternatePhoneNumber(Long alternatePhoneNumber) {
+		this.alternatePhoneNumber = alternatePhoneNumber;
 	}
 
 	public void setWeight(Integer weight) {
